@@ -31,6 +31,7 @@ public class ApiStepDefs {
         Map<String, String> credentialsMap = BookitUtils.returnCredentials(role);
 
         emailGlobal = credentialsMap.get("email");
+        System.out.println("emailGlobal = " + emailGlobal);
 
 
     }
@@ -40,7 +41,10 @@ public class ApiStepDefs {
          response = given().accept(ContentType.JSON)
                 .header("Authorization", token)
                 .when().get(Environment.BASE_URL + endpoint);
+
     }
+
+
     @Then("status code should be {int}")
     public void status_code_should_be(int expectedStatusCode) {
         System.out.println("response.statusCode() = " + response.statusCode());
@@ -55,11 +59,13 @@ public class ApiStepDefs {
         //verify content type
         Assert.assertEquals(expectedContentType,response.contentType());
     }
+
+
     @Then("role is {string}")
     public void role_is(String expectedRole) {
         response.prettyPrint();
         String actualRole = response.path("role");
-
+        System.out.println("actualRole = " + actualRole);
         Assert.assertEquals(expectedRole,actualRole);
     }
 
